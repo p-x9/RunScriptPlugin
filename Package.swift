@@ -24,7 +24,13 @@ let package = Package(
                 .product(name: "Yams", package: "Yams")
             ]
         ),
-        .binaryTarget(name: "run-script-bin", path: "./run-script-bin.artifactbundle.zip"),
+        .binaryTarget(
+            name: "run-script-bin",
+            url: "https://github.com/p-x9/RunScriptPlugin/releases/download/0.0.1/run-script-bin.artifactbundle.zip",
+            checksum: "660213786af538f6ec94dd4bc1fa29fcf42b7a157fb786d8d152466fc35e724f"
+        ),
+//        DEBUG
+//        .binaryTarget(name: "run-script-bin", path: "./run-script-bin.artifactbundle.zip"),
         .plugin(
             name: "RunScriptPlugin",
             capability: .buildTool(),
