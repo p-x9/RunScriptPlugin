@@ -36,7 +36,7 @@ create_artifact_bundle() {
     sed "s/__VERSION__/${VERSION_STRING}/g; s/__NAME__/${NAME}/g" ${INFO_TEMPLATE} > "${ARTIFACT_BUNDLE_NAME}/info.json"
 
     cp -f ".build/apple/Products/Release/${PRODUCT_NAME}" "${ARTIFACT_BUNDLE_BIN_PATH}"
-#    cp -f LICENSE "${ARTIFACT_BUNDLE_NAME}"
+    cp -f LICENSE "${ARTIFACT_BUNDLE_NAME}"
 
     mv "${ARTIFACT_BUNDLE_BIN_PATH}/${PRODUCT_NAME}" "${ARTIFACT_BUNDLE_BIN_PATH}/${NAME}"
 }
