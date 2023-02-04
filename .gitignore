@@ -7,3 +7,6 @@ DerivedData/
 .swiftpm/config/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
+
+run-script-bin.artifactbundle
+run-script-bin.artifactbundle.zip
