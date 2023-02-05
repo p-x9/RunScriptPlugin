@@ -31,7 +31,7 @@ build: # build Command
 ```
 
 ## Example
-- SwiftLint
+- SwiftLint  
 You can run Lint in SPM without using the SwiftLint plugin.
 ```yaml
 - name: "SwiftLint"
@@ -39,12 +39,12 @@ You can run Lint in SPM without using the SwiftLint plugin.
 ```
 
 - Build Log
-```yaml
+```yaml  
 - name: "Build Log"
   script: "echo \"[$(date)] Build >> build.log\""
 ```
 
-- Theos(Orion) install
+- Theos(Orion) install  
 You can install the Tweak from the Build button in SPM.
 ```yaml
 - name: "Theos make package and install"
