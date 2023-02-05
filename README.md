@@ -29,3 +29,35 @@ build: # build Command
      script: "echo Hello"
 
 ```
+
+## Example
+- SwiftLint
+You can run Lint in SPM without using the SwiftLint plugin.
+```yaml
+- name: "SwiftLint"
+  script: "swiftlint lint"
+```
+
+- Build Log
+```yaml
+- name: "Build Log"
+  script: "echo \"[$(date)] Build >> build.log\""
+```
+
+- Theos(Orion) install
+You can install the Tweak from the Build button in SPM.
+```yaml
+- name: "Theos make package and install"
+  script: "make do"
+```
+- SwiftFormat
+```yaml
+- name: "SwiftFormat"
+  script: "swiftformat ."
+```
+
+- SwiftGen
+```yaml
+- name: "SwiftGen"
+  script: "swiftgen config run"
+```
