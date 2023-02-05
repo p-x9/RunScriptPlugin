@@ -63,8 +63,11 @@ extension RunScriptPlugin: XcodeBuildToolPlugin {
 // ref: https://github.com/realm/SwiftLint/blob/main/Plugins/SwiftLintPlugin/Path%2BHelpers.swift
 extension Path {
     func firstConfigurationFileInParentDirectories() -> Path? {
-        let defaultConfigurationFileName = ".runscript.yml"
-        let proposedDirectory = sequence(
+        let defaultConfigurationFileNames = [
+            "runscript.yml",
+            ".runscript.yml"
+        ]
+        let proposedDirectories = sequence(
             first: self,
             next: { path in
                 guard path.stem.count > 1 else {
@@ -75,11 +78,17 @@ extension Path {
 
                 return path.removingLastComponent()
             }
-        ).first { path in
-            let potentialConfigurationFile = path.appending(subpath: defaultConfigurationFileName)
-            return potentialConfigurationFile.isAccessible()
+        )
+
+        for proposedDirectory in proposedDirectories {
+            for fileName in defaultConfigurationFileNames {
+                let potentialConfigurationFile = proposedDirectory.appending(subpath: fileName)
+                if potentialConfigurationFile.isAccessible() {
+                    return potentialConfigurationFile
+                }
+            }
         }
-        return proposedDirectory?.appending(subpath: defaultConfigurationFileName)
+        return nil
     }
 
     /// Safe way to check if the file is accessible from within the current process sandbox.
