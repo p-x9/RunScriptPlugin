@@ -17,9 +17,16 @@ prebuild: # prebuildCommand
     script: "pwd"
   - name: "Write file"
     script: "echo Hello >> test.txt"
+
   - name: "SwiftLint"
     launchPath: "/bin/bash" # bash, zsh, etc. can be specified
     script: "swiftlint lint --fix"
+
+  - name: "SwiftLint" # Another way to write ↑↑
+    launchPath: "/usr/local/bin/swiftlint"
+    arguments:
+      - "lint"
+      - "fix"
 
   - name: "Update schema"
     file: "update_schema.sh" # Execute .sh file
@@ -31,7 +38,7 @@ build: # build Command
 ```
 
 ## Example
-- SwiftLint  
+- SwiftLint
 You can run Lint in SPM without using the SwiftLint plugin.
 ```yaml
 - name: "SwiftLint"
@@ -39,12 +46,12 @@ You can run Lint in SPM without using the SwiftLint plugin.
 ```
 
 - Build Log
-```yaml  
+```yaml
 - name: "Build Log"
   script: "echo \"[$(date)] Build >> build.log\""
 ```
 
-- Theos(Orion) install  
+- Theos(Orion) install
 You can install the Tweak from the Build button in SPM.
 ```yaml
 - name: "Theos make package and install"
