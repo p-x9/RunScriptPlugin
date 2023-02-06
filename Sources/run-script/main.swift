@@ -52,6 +52,8 @@ func run(_ script: Script) throws {
 
     if let path = script.path {
         process.arguments = [path]
+    } else if let arguments = script.arguments, !arguments.isEmpty {
+        process.arguments = arguments
     } else if let script = script.script {
         process.arguments = ["-c", script]
     }

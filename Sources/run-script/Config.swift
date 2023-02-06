@@ -20,4 +20,6 @@ struct Script: Codable {
 
     let path: String?
     let script: String?
+
+    let arguments: [String]?
 }
