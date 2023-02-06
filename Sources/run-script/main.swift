@@ -48,7 +48,7 @@ func run() throws {
 func run(_ script: Script) throws {
     let process = Process()
 
-    process.launchPath = "/bin/sh"
+    process.launchPath = script.launchPath ?? "/bin/sh"
 
     if let path = script.path {
         process.arguments = [path]
