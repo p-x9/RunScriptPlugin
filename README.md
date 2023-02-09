@@ -4,7 +4,7 @@ SwiftPackage Plugin for executing arbitrary ShellScript.
 
 
 ## Usage
-Place the file named `.runscript.yml` in the root of the project.
+Place the file named `runscript.yml`(or `.runscript.yml`) in the root of the project.
 Write the shell script you want to run in this file.
 
 The format is as follows.
