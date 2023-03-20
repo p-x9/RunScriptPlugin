@@ -28,19 +28,19 @@ struct RunScriptPlugin: BuildToolPlugin {
             return []
         }
 
-        let arguments = [configuration.string]
+        let arguments = ["--config", configuration.string]
 
         return [
             .prebuildCommand(
                 displayName: "RunScriptPlugin(PreBuild)",
                 executable: tool.path,
-                arguments: arguments + ["1"],
+                arguments: arguments + ["--timing", "prebuild"],
                 outputFilesDirectory: workingDirectory
             ),
             .buildCommand(
                 displayName: "RunScriptPlugin(Build)",
                 executable: tool.path,
-                arguments: arguments + ["0"]
+                arguments: arguments + ["--timing", "build"]
             )
         ]
     }

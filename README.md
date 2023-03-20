@@ -10,7 +10,7 @@ Write the shell script you want to run in this file.
 The format is as follows.
 
 ```yaml
-prebuild: # prebuildCommand
+prebuild: # prebuild Command
   - name: "Hello"
     script: "echo Hello" # Write scripts directly
   - name: "Show current path"
@@ -26,7 +26,7 @@ prebuild: # prebuildCommand
     launchPath: "/usr/local/bin/swiftlint"
     arguments:
       - "lint"
-      - "fix"
+      - "--fix"
 
   - name: "Update schema"
     file: "update_schema.sh" # Execute .sh file
@@ -35,6 +35,9 @@ build: # build Command
    - name: "Hello"
      script: "echo Hello"
 
+all: # run in `prebuild`, `build`...
+   - name: "Hello(all)"
+     script: "echo Hello(all)"
 ```
 
 ## Example
