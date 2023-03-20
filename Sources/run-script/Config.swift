@@ -8,9 +8,12 @@
 
 import Foundation
 
+#if os(macOS)
 struct Config: Codable {
     let prebuild: [Script]?
     let build: [Script]?
+    let command: [Script]?
+    let all: [Script]?
 }
 
 struct Script: Codable {
@@ -23,3 +26,18 @@ struct Script: Codable {
 
     let arguments: [String]?
 }
+
+extension Config {
+    func scripts(for timing: Timing) -> [Script] {
+        let all = all ?? []
+        switch timing {
+        case .prebuild:
+            return (prebuild ?? []) + all
+        case .build:
+            return (build ?? []) + all
+        case .command:
+            return (command ?? []) + all
+        }
+    }
+}
+#endif
