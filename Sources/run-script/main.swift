@@ -44,6 +44,9 @@ struct RunScript: ParsableCommand {
     @Option(help: "Which scripts to run in the configuration file")
     var timing: Timing
 
+    @Flag(name: .customLong("silence"), help: "Do not output logs")
+    var silence: Bool = false
+
     func run() throws {
         let configFileURL = URL(fileURLWithPath: config)
 
@@ -61,9 +64,21 @@ struct RunScript: ParsableCommand {
         FileManager.default.changeCurrentDirectoryPath(directory)
 
         let scripts = config.scripts(for: timing)
-        try scripts.forEach {
-            try run($0)
+
+        log("🏃[Start] RunScriptPlugin(\(timing.rawValue))")
+        try scripts.enumerated().forEach { index, script in
+            log("🏃[script] \(script.name ?? String(index))...")
+            try run(script)
         }
+        log("🏃[End] RunScriptPlugin(\(timing.rawValue))")
+    }
+}
+
+extension RunScript {
+    @inline(never)
+    func log(_ items: Any..., separator: String = " ", terminator: String = "\n") {
+        if silence { return }
+        print(items, separator: separator, terminator: terminator, flush: true)
     }
 }
 
