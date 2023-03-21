@@ -2,6 +2,11 @@
 
 SwiftPackage Plugin for executing arbitrary ShellScript.
 
+## Feature
+- BuildToolPlugin: RunScriptPlugin
+- CommandPlugin: RunScriptCommandPlugin
+- XcodeBuildToolPlugin: RunScriptPlugin
+- XcodeCommandPlugin: RunScriptCommandPlugin
 
 ## Usage
 Place the file named `runscript.yml`(or `.runscript.yml`) in the root of the project.
@@ -34,6 +39,10 @@ prebuild: # prebuild Command
 build: # build Command
    - name: "Hello"
      script: "echo Hello"
+
+command: # Command Plugin
+  - name: "Hello from Command"
+    script: "echo 'Hello from Command'"
 
 all: # run in `prebuild`, `build`...
    - name: "Hello(all)"

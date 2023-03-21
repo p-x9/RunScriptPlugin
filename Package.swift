@@ -9,6 +9,10 @@ let package = Package(
             name: "RunScriptPlugin",
             targets: ["RunScriptPlugin"]
         ),
+        .plugin(
+            name: "RunScriptCommandPlugin",
+            targets: ["RunScriptCommandPlugin"]
+        ),
         .executable(
             name: "run-script",
             targets: ["run-script"]
@@ -36,6 +40,21 @@ let package = Package(
         .plugin(
             name: "RunScriptPlugin",
             capability: .buildTool(),
+            dependencies: [
+                "run-script-bin"
+            ]
+        ),
+        .plugin(
+            name: "RunScriptCommandPlugin",
+            capability: .command(
+                intent: .custom(
+                    verb: "run script",
+                    description: "run scripts defined in `runscript.yml`"
+                ),
+                permissions: [
+                    .writeToPackageDirectory(reason: "to run scripts defined in `runscript.yml`")
+                ]
+            ),
             dependencies: [
                 "run-script-bin"
             ]
