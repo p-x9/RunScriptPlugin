@@ -12,7 +12,7 @@ import ArgumentParser
 
 #if os(macOS)
 enum CommandError: LocalizedError {
-    case configFileNotExsisted
+    case configFileNotExisted
 }
 
 enum Timing: String, EnumerableFlag, ExpressibleByArgument {
@@ -54,7 +54,7 @@ struct RunScript: ParsableCommand {
         let decoder = YAMLDecoder()
 
         guard fileManager.fileExists(atPath: config) else {
-            throw CommandError.configFileNotExsisted
+            throw CommandError.configFileNotExisted
         }
 
         let data = try Data(contentsOf: configFileURL)
