@@ -48,7 +48,7 @@ let package = Package(
             name: "RunScriptCommandPlugin",
             capability: .command(
                 intent: .custom(
-                    verb: "run script",
+                    verb: "run-script",
                     description: "run scripts defined in `runscript.yml`"
                 ),
                 permissions: [
