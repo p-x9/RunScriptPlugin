@@ -85,8 +85,10 @@ extension RunScript {
 extension RunScript {
     func run(_ script: Script) throws {
         let process = Process()
+        let errorPipe = Pipe()
 
         process.launchPath = script.launchPath ?? "/bin/sh"
+        process.standardError = errorPipe
 
         if let path = script.path {
             process.arguments = [path]
@@ -96,8 +98,12 @@ extension RunScript {
             process.arguments = ["-c", script]
         }
 
-        process.launch()
-        process.waitUntilExit()
+        try process.run()
+
+        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+        if let error = String(data: errorData, encoding: .utf8) {
+            log("warning: [RunScriptPlugin] " + error)
+        }
     }
 }
 
