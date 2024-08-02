@@ -49,6 +49,19 @@ all: # run in `prebuild`, `build`...
      script: "echo Hello(all)"
 ```
 
+> [!NOTE]
+> Due to a limitation of Xcode, you may get a permission error when trying to write a file.
+>
+> If CommandPlugin is run from the shell, it is possible to work around this by disabling the sandbox using the `--disable-sandbox` option.
+> ```sh
+> swift package plugin --allow-writing-to-package-directory --disable-sandbox run-script
+> ```
+>
+>　If you want to avoid the use of the BuildToolPlugin/CommandPlugin via Xcode, you can disable the use of the sandbox by configuring the following settings.
+> ```sh
+> defaults write com.apple.dt.Xcode IDEPackageSupportDisablePluginExecutionSandbox -bool YES
+> ```
+
 ## Example
 - SwiftLint
 You can run Lint in SPM without using the SwiftLint plugin.
