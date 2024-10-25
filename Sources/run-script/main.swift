@@ -101,7 +101,8 @@ extension RunScript {
         try process.run()
 
         let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-        if let error = String(data: errorData, encoding: .utf8) {
+        if let error = String(data: errorData, encoding: .utf8),
+           !error.isEmpty {
             log("warning: [RunScriptPlugin] " + error)
         }
     }
