@@ -47,7 +47,8 @@ struct RunScriptPlugin: BuildToolPlugin {
                 displayName: "RunScriptPlugin(Build)",
                 executable: tool.path,
                 arguments: arguments + ["--timing", "build"],
-                environment: environments
+                environment: environments,
+                outputFiles: [workingDirectory]
             )
         ]
     }
