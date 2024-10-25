@@ -98,12 +98,15 @@ extension RunScript {
             process.arguments = ["-c", script]
         }
 
-        try process.run()
-
-        let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
-        if let error = String(data: errorData, encoding: .utf8),
-           !error.isEmpty {
-            log("warning: [RunScriptPlugin] " + error)
+        do {
+            try process.run()
+            process.waitUntilExit()
+        } catch {
+            let errorData = errorPipe.fileHandleForReading.readDataToEndOfFile()
+            if let error = String(data: errorData, encoding: .utf8),
+               !error.isEmpty {
+                log("warning: [RunScriptPlugin] " + error)
+            }
         }
     }
 }
