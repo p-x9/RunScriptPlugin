@@ -30,19 +30,36 @@ struct RunScriptPlugin: BuildToolPlugin {
 
         let arguments = ["--config", configuration.string]
 
+        let environments = environments(
+            packageDirectory: packageDirectory,
+            workingDirectory: workingDirectory
+        )
+
         return [
             .prebuildCommand(
                 displayName: "RunScriptPlugin(PreBuild)",
                 executable: tool.path,
                 arguments: arguments + ["--timing", "prebuild"],
+                environment: environments,
                 outputFilesDirectory: workingDirectory
             ),
             .buildCommand(
                 displayName: "RunScriptPlugin(Build)",
                 executable: tool.path,
-                arguments: arguments + ["--timing", "build"]
+                arguments: arguments + ["--timing", "build"],
+                environment: environments
             )
         ]
+    }
+
+    private func environments(
+        packageDirectory: Path,
+        workingDirectory: Path
+    ) -> [String: any CustomStringConvertible] {
+        var environments = ProcessInfo.processInfo.environment
+        environments["RUN_SCRIPT_TARGET_PACKAGE_DIR"] = packageDirectory.string
+        environments["RUN_SCRIPT_PLUGIN_WORK_DIR"] = workingDirectory.string
+        return environments
     }
 }
 

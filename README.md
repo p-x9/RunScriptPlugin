@@ -62,6 +62,17 @@ all: # run in `prebuild`, `build`...
 > defaults write com.apple.dt.Xcode IDEPackageSupportDisablePluginExecutionSandbox -bool YES
 > ```
 
+### Environment Valiables
+
+The following environment variables are available in the script to refer to the Plugin context.
+
+- RUN_SCRIPT_TARGET_PACKAGE_DIR  
+    Path of the target package on which the plugin runs.
+    The path obtained by `PackagePlugin.PluginContext.package.directory`
+- RUN_SCRIPT_PLUGIN_WORK_DIR  
+    The path of a writable directory into which the plugin or the build commands it constructs can write anything it wants.
+    The path obtained by `PackagePlugin.PluginContext.pluginWorkDirectory`
+
 ## Example
 - SwiftLint
 You can run Lint in SPM without using the SwiftLint plugin.
