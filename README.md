@@ -37,8 +37,11 @@ prebuild: # prebuild Command
     file: "update_schema.sh" # Execute .sh file
 
 build: # build Command
-   - name: "Hello"
-     script: "echo Hello"
+  - name: "Hello"
+    script: "echo Hello"
+  - name: "Make Swift Code"
+    script: |
+        echo "public enum Hello { case a,b,c,d }" > $RUN_SCRIPT_PLUGIN_WORK_DIR/tmp.swift"
 
 command: # Command Plugin
   - name: "Hello from Command"
