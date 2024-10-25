@@ -13,6 +13,7 @@ struct RunScriptCommandPlugin: CommandPlugin {
     func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
         try performCommand(
             packageDirectory: context.package.directory,
+            workingDirectory: context.pluginWorkDirectory,
             tool: try context.tool(named: "run-script-bin"),
             arguments: arguments
         )
@@ -20,6 +21,7 @@ struct RunScriptCommandPlugin: CommandPlugin {
 
     private func performCommand(
         packageDirectory: Path,
+        workingDirectory: Path,
         tool: PluginContext.Tool,
         arguments: [String]
     ) throws {
@@ -36,9 +38,23 @@ struct RunScriptCommandPlugin: CommandPlugin {
             "--timing",
             timing
         ]
+        process.environment = environments(
+            packageDirectory: packageDirectory,
+            workingDirectory: workingDirectory
+        )
 
         try process.run()
         process.waitUntilExit()
+    }
+
+    private func environments(
+        packageDirectory: Path,
+        workingDirectory: Path
+    ) -> [String: String] {
+        var environments = ProcessInfo.processInfo.environment
+        environments["RUN_SCRIPT_TARGET_PACKAGE_DIR"] = packageDirectory.string
+        environments["RUN_SCRIPT_PLUGIN_WORK_DIR"] = workingDirectory.string
+        return environments
     }
 }
 
@@ -49,6 +65,7 @@ extension RunScriptCommandPlugin: XcodeCommandPlugin {
     func performCommand(context: XcodeProjectPlugin.XcodePluginContext, arguments: [String]) throws {
         try performCommand(
             packageDirectory: context.xcodeProject.directory,
+            workingDirectory: context.pluginWorkDirectory,
             tool: try context.tool(named: "run-script-bin"),
             arguments: arguments
         )
