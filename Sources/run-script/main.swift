@@ -33,7 +33,7 @@ struct RunScript: ParsableCommand {
     static let configuration: CommandConfiguration = .init(
         commandName: "RunScript",
         abstract: "Run shell scripts configured in yaml files",
-        version: "0.0.4",
+        version: "0.4.0",
         shouldDisplay: true,
         helpNames: [.long, .short]
     )
