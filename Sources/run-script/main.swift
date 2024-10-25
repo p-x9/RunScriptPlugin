@@ -60,8 +60,9 @@ struct RunScript: ParsableCommand {
         let data = try Data(contentsOf: configFileURL)
         let config = try decoder.decode(Config.self, from: data)
 
-        let directory = configFileURL.deletingLastPathComponent().path
-        FileManager.default.changeCurrentDirectoryPath(directory)
+        let packageDirectory = ProcessInfo.processInfo.environment["RUN_SCRIPT_TARGET_PACKAGE_DIR"]
+        let configDirectory = configFileURL.deletingLastPathComponent().path
+        FileManager.default.changeCurrentDirectoryPath(packageDirectory ?? configDirectory)
 
         let scripts = config.scripts(for: timing)
 
